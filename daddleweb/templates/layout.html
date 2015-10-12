@@ -1,0 +1,26 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}daddle{% endblock %}</title>
+  </head>
+  <body>
+    <div class="container">
+    <h1>daddle &mdash; Events</h1>
+
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
+
+    {% block content%}{% endblock %}
+
+    </div> <!-- .container -->
+  </body>
+</html>

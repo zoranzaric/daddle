@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    {% for event in events %}
+        <article>
+            <h2>{{ event.title }}</h2>
+            {{ event.start_date }}
+            <ul class="pledges">
+                {% for pledge in event.pledge_set.all %}
+                <li {% if not pledge.is_active %} class="canceled" {% endif %}>
+                  {{ pledge.user }}
+                </li>
+                {% endfor %}
+        </article>
+    {% endfor %}
+{% endblock %}

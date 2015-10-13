@@ -23,7 +23,7 @@ class Event(models.Model):
         return self.max_people - len(self.active_pledges())
 
     def is_full(self):
-        return self.free_slots <= 0
+        return self.free_slots() <= 0
 
     def user_has_active_pledge(self, user):
         for pledge in self.active_pledges():

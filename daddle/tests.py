@@ -39,6 +39,26 @@ class EventTests(TestCase):
         self.assertFalse(event.is_full())
 
 
+    def test_full_event_is_not_full(self):
+        user = User()
+        user.save()
+
+        mission = Mission(title='Test Mission')
+        mission.save()
+
+        event = Event(title='Test Event',
+                      min_people=0,
+                      max_people=1,
+                      start_date=timezone.now(),
+                      mission=mission)
+        event.save()
+
+        pledge = Pledge(event=event, user=user, timestamp=timezone.now())
+        pledge.save()
+
+        self.assertTrue(event.is_full())
+
+
     def test_event_with_one_pledge_has_one_active(self):
         user = User()
         user.save()

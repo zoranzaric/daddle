@@ -1,12 +1,4 @@
-{# Load the tag library #}
-{% load bootstrap3 %}
-
 {% load staticfiles %}
-
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,9 +6,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{% block title %}daddle{% endblock %}</title>
     <link href="{% static "daddle.css" %}" rel="stylesheet" />
+    {# Load the tag library #}
+    {% load bootstrap3 %}
+
+
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
   </head>
   <body>
     <div class="container">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">daddle</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              {% if not user.is_authenticated %}
+              <li ><a href="/login">Login</a></li>
+              {% endif %}
+              {% if user.is_authenticated %}
+              <li ><a href="/logout">Logout</a></li>
+              {% endif %}
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
     <h1>daddle &mdash; Events</h1>
 
     {# Display django.contrib.messages as Bootstrap alerts #}

@@ -6,6 +6,7 @@
         <article class="event">
           <h2>{{ event.mission.title }} &mdash; {{ event.title }}</h2>
             <div class="start_date">{{ event.start_date }}</div>
+            <div class="description"><p>{{ event.description }}</p></div>
             <div class="pledges">{{ event.active_pledges|length }}/{{ event.max_people }}</div>
             <ul class="pledgers">
                 {% for pledge in event.pledge_set.all %}

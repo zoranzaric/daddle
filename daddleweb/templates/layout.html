@@ -1,6 +1,8 @@
 {# Load the tag library #}
 {% load bootstrap3 %}
 
+{% load staticfiles %}
+
 {# Load CSS and JavaScript #}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
@@ -11,6 +13,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{% block title %}daddle{% endblock %}</title>
+    <link href="{% static "daddle.css" %}" rel="stylesheet" />
   </head>
   <body>
     <div class="container">

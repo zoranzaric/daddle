@@ -3,17 +3,34 @@
 {% block content %}
     <div id="events">
     {% for event in events %}
-        <article class="event">
+        <article class="event" data-event-id="{{ event.id }}">
           <h2>{{ event.mission.title }} &mdash; {{ event.title }}</h2>
             <div class="start_date">{{ event.start_date }}</div>
             <div class="description"><p>{{ event.description }}</p></div>
             <div class="pledges">{{ event.active_pledges|length }}/{{ event.max_people }}</div>
             <ul class="pledgers">
-                {% for pledge in event.pledge_set.all %}
+                {% for pledge in event.active_pledges %}
                 <li {% if not pledge.is_active %} class="canceled" {% endif %}>
                   {{ pledge.user }}
                 </li>
                 {% endfor %}
+            </ul> <!-- pledgers -->
+            <div class="pledge">
+            {% if not event.current_user_has_active_pledge %}
+                <form action="{% url 'pledge' %}" method="POST">{% csrf_token %}
+                    <input type="hidden" name="event-id" value="{{ event.id }}" />
+                    <input type="submit" class="btn btn-primary" value="pledge" />
+                </form>
+            {% endif %}
+            </div>
+            <div class="cancel">
+            {% if event.current_user_has_active_pledge %}
+                <form action="{% url 'cancel_pledge' %}" method="POST">{% csrf_token %}
+                    <input type="hidden" name="event-id" value="{{ event.id }}" />
+                    <input type="submit" class="btn btn-danger" value="cancel" />
+                </form>
+            {% endif %}
+            </div>
         </article>
     {% endfor %}
     </div> <!-- #events -->

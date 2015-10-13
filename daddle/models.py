@@ -7,6 +7,7 @@ class Event(models.Model):
     min_people = models.IntegerField()
     max_people = models.IntegerField()
     mission = models.ForeignKey('Mission')
+    description = models.TextField(blank=True)
 
     def __str__(self):
         return "%s (%s)" % (self.title, self.start_date)

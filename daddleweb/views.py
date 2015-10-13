@@ -7,3 +7,7 @@ def index(request):
     events = Event.objects.filter(start_date__gte=datetime.datetime.now())
     context = {'events': events}
     return render(request, 'index.html', context)
+
+def welcome(request):
+    return render(request, 'welcome.html')
+

@@ -7,7 +7,7 @@ def index(request):
     events = Event.objects.filter(start_date__gte=timezone.now())
     for event in events:
         event.current_user_has_active_pledge = event.user_has_active_pledge(request.user)
-    context = {'events': events}
+    context = {'events': events, 'user': request.user}
     return render(request, 'index.html', context)
 
 def welcome(request):

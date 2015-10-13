@@ -16,19 +16,21 @@
                 {% endfor %}
             </ul> <!-- pledgers -->
             <div class="pledge">
-            {% if not event.current_user_has_active_pledge %}
-                <form action="{% url 'pledge' %}" method="POST">{% csrf_token %}
-                    <input type="hidden" name="event-id" value="{{ event.id }}" />
-                    <input type="submit" class="btn btn-primary" value="pledge" />
-                </form>
-            {% endif %}
-            </div>
-            <div class="cancel">
-            {% if event.current_user_has_active_pledge %}
-                <form action="{% url 'cancel_pledge' %}" method="POST">{% csrf_token %}
-                    <input type="hidden" name="event-id" value="{{ event.id }}" />
-                    <input type="submit" class="btn btn-danger" value="cancel" />
-                </form>
+            {% if user.is_authenticated %}
+                {% if not event.current_user_has_active_pledge %}
+                    <form action="{% url 'pledge' %}" method="POST">{% csrf_token %}
+                        <input type="hidden" name="event-id" value="{{ event.id }}" />
+                        <input type="submit" class="btn btn-primary" value="pledge" />
+                    </form>
+                {% endif %}
+                </div>
+                <div class="cancel">
+                {% if event.current_user_has_active_pledge %}
+                    <form action="{% url 'cancel_pledge' %}" method="POST">{% csrf_token %}
+                        <input type="hidden" name="event-id" value="{{ event.id }}" />
+                        <input type="submit" class="btn btn-danger" value="cancel" />
+                    </form>
+                {% endif %}
             {% endif %}
             </div>
         </article>

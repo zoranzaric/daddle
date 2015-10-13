@@ -1,5 +1,5 @@
 from django.test import TestCase
-from daddle.models import Event, Pledge
+from daddle.models import Event, Pledge, Mission
 from django.contrib.auth.models import User
 
 from django.utils import timezone
@@ -9,10 +9,14 @@ class EventTests(TestCase):
         user = User()
         user.save()
 
+        mission = Mission(title='Test Mission')
+        mission.save()
+
         event = Event(title='Test Event',
                       min_people=1,
                       max_people=3,
-                      start_date=timezone.now())
+                      start_date=timezone.now(),
+                      mission=mission)
         event.save()
 
         pledge = Pledge(event=event, user=user, timestamp=timezone.now())
@@ -22,10 +26,14 @@ class EventTests(TestCase):
 
 
     def test_empty_event_is_not_full(self):
+        mission = Mission(title='Test Mission')
+        mission.save()
+
         event = Event(title='Test Event',
                       min_people=0,
                       max_people=1,
-                      start_date=timezone.now())
+                      start_date=timezone.now(),
+                      mission=mission)
         event.save()
 
         self.assertFalse(event.is_full())
@@ -35,10 +43,14 @@ class EventTests(TestCase):
         user = User()
         user.save()
 
+        mission = Mission(title='Test Mission')
+        mission.save()
+
         event = Event(title='Test Event',
                       min_people=0,
                       max_people=1,
-                      start_date=timezone.now())
+                      start_date=timezone.now(),
+                      mission=mission)
         event.save()
 
         pledge = Pledge(event=event, user=user, timestamp=timezone.now())
@@ -51,10 +63,14 @@ class EventTests(TestCase):
         user = User()
         user.save()
 
+        mission = Mission(title='Test Mission')
+        mission.save()
+
         event = Event(title='Test Event',
                       min_people=0,
                       max_people=1,
-                      start_date=timezone.now())
+                      start_date=timezone.now(),
+                      mission=mission)
         event.save()
 
         pledge = Pledge(event=event, user=user,
@@ -69,10 +85,14 @@ class EventTests(TestCase):
         user = User()
         user.save()
 
+        mission = Mission(title='Test Mission')
+        mission.save()
+
         event = Event(title='Test Event',
                       min_people=0,
                       max_people=1,
-                      start_date=timezone.now())
+                      start_date=timezone.now(),
+                      mission=mission)
         event.save()
 
         canceled_pledge = Pledge(event=event, user=user,

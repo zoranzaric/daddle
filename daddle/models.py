@@ -6,6 +6,7 @@ class Event(models.Model):
     start_date = models.DateTimeField()
     min_people = models.IntegerField()
     max_people = models.IntegerField()
+    mission = models.ForeignKey('Mission')
 
     def __str__(self):
         return "%s (%s)" % (self.title, self.start_date)
@@ -32,4 +33,11 @@ class Pledge(models.Model):
 
     def is_active(self):
         return self.cancel_timestamp == None
+
+
+class Mission(models.Model):
+    title = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
 

@@ -25,6 +25,12 @@ class Event(models.Model):
     def is_full(self):
         return self.free_slots <= 0
 
+    def user_has_active_pledge(self, user):
+        for pledge in self.active_pledges():
+            if pledge.user == user:
+                return True
+        return False
+
 
 class Pledge(models.Model):
     event = models.ForeignKey('Event')

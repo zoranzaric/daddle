@@ -107,3 +107,28 @@ class EventTests(TestCase):
         self.assertEquals(len(event.active_pledges()), 1)
         self.assertEquals(event.active_pledges()[0], pledge)
 
+    def test_pledged_user_has_active_pledge(self):
+        user = User()
+        user.save()
+
+        mission = Mission(title='Test Mission')
+        mission.save()
+
+        event = Event(title='Test Event',
+                      min_people=0,
+                      max_people=1,
+                      start_date=timezone.now(),
+                      mission=mission)
+        event.save()
+
+        canceled_pledge = Pledge(event=event, user=user,
+                        timestamp=timezone.now())
+        canceled_pledge.save()
+
+        pledge = Pledge(event=event, user=user,
+                        timestamp=timezone.now())
+        pledge.save()
+
+        self.assertTrue(event.user_has_active_pledge(user))
+
+

@@ -10,11 +10,11 @@ urlpatterns = [
     url('^pledge', views.pledge_user_to_event, name='pledge'),
     url('^cancel_pledge', views.cancel_pledge, name='cancel_pledge'),
 
-    url(r'^login?/',
+    url(r'^login/?',
         auth_views.login,
         {'template_name': 'login.html'},
         name='auth_login'),
-    url(r'^logout?/',
+    url(r'^logout/?',
         auth_views.logout,
         {'template_name': 'logout.html'},
         name='auth_logout'),

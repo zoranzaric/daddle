@@ -1,0 +1,17 @@
+language: python
+
+python:
+  - 2.7
+
+env:
+  - DADDLE_SECRET_KEY=test
+
+install:
+  - pip install -r requirements.txt
+
+before_script:
+  - python manage.py migrate
+
+script:
+  - python manage.py test
+

@@ -1,5 +1,10 @@
 {% extends "layout.html" %}
 
+{% block head %}
+<meta property="og:title" content="{{ event.mission.title }} &mdash; {{ event.title }}" />
+<meta property="og:description" content="{{ event.description }}" />
+{% endblock %}
+
 {% block content %}
     <div id="event">
         <article class="event" data-event-id="{{ event.id }}">

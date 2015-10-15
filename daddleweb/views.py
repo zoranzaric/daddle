@@ -3,8 +3,11 @@ from daddle.models import Event, Pledge
 from django.utils import timezone
 from django.http import HttpResponseNotFound
 
+import datetime
+
 def index(request):
-    events = Event.objects.filter(start_date__gte=timezone.now())
+    start_date = timezone.now() - datetime.timedelta(hours=8)
+    events = Event.objects.filter(start_date__gte=start_date)
     for event in events:
         event.current_user_has_active_pledge = event.user_has_active_pledge(request.user)
     context = {'events': events, 'user': request.user}

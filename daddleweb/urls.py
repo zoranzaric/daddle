@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^welcome', views.welcome, name='welcome'),
     url('^pledge', views.pledge_user_to_event, name='pledge'),
     url('^cancel_pledge', views.cancel_pledge, name='cancel_pledge'),
+    url('^event/(?P<event_id>[0-9]+/?$)', views.single_event, name='single_event'),
 
     url(r'^login/?',
         auth_views.login,

@@ -1,10 +1,9 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <div id="events">
-    {% for event in events %}
+    <div id="event">
         <article class="event" data-event-id="{{ event.id }}">
-        <a href="{% url 'single_event' event.id %}"><h2>{{ event.mission.title }} &mdash; {{ event.title }}</h2></a>
+            <a href="{% url 'single_event' event.id %}"><h1>{{ event.mission.title }} &mdash; {{ event.title }}</h1></a>
             <div class="start_date">{{ event.start_date }}</div>
             <div class="description"><p>{{ event.description }}</p></div>
             <div class="pledges">{{ event.active_pledges|length }}/{{ event.max_people }}</div>
@@ -34,6 +33,5 @@
             {% endif %}
             </div>
         </article>
-    {% endfor %}
     </div> <!-- #events -->
 {% endblock %}

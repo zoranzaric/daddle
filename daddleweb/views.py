@@ -38,6 +38,13 @@ def cancel_pledge(request):
     return redirect('index')
 
 
+def single_event(request, event_id):
+    event = get_object_or_404(Event, pk=event_id)
+
+    context = {'event': event, 'user': request.user}
+    return render(request, 'single_event.html', context)
+
+
 def _get_active_pledge(event, user):
     for p in event.active_pledges():
         if p.user == user:

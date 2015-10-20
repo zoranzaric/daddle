@@ -7,7 +7,7 @@ import datetime
 
 def index(request):
     start_date = timezone.now() - datetime.timedelta(hours=8)
-    events = Event.objects.filter(start_date__gte=start_date)
+    events = Event.objects.filter(start_date__gte=start_date).order_by('start_date')
     for event in events:
         event.current_user_has_active_pledge = event.user_has_active_pledge(request.user)
     context = {'events': events, 'user': request.user}

@@ -43,6 +43,7 @@ def cancel_pledge(request):
 
 def single_event(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
+    event.current_user_has_active_pledge = event.user_has_active_pledge(request.user)
 
     context = {'event': event, 'user': request.user}
     return render(request, 'single_event.html', context)

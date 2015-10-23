@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% load humanize %}
 
 {% block head %}
 <meta property="og:title" content="{{ event.mission.title }} &mdash; {{ event.title }}" />
@@ -9,7 +10,7 @@
     <div id="event">
         <article class="event" data-event-id="{{ event.id }}">
             <a href="{% url 'single_event' event.id %}"><h1>{{ event.mission.title }} &mdash; {{ event.title }}</h1></a>
-            <div class="start_date">{{ event.start_date }}</div>
+            <div class="start_date">{{ event.start_date }} ({{ event.start_date|naturaltime}})</div>
             <div class="description"><p>{{ event.description }}</p></div>
             <div class="pledges">{{ event.active_pledges|length }}/{{ event.max_people }}</div>
             <ul class="pledgers">

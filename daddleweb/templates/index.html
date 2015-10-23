@@ -1,11 +1,12 @@
 {% extends "layout.html" %}
+{% load humanize %}
 
 {% block content %}
     <div id="events">
     {% for event in events %}
         <article class="event" data-event-id="{{ event.id }}">
         <a href="{% url 'single_event' event.id %}"><h2>{{ event.mission.title }} &mdash; {{ event.title }}</h2></a>
-            <div class="start_date">{{ event.start_date }}</div>
+            <div class="start_date">{{ event.start_date }} ({{ event.start_date|naturaltime}})</div>
             <div class="description"><p>{{ event.description }}</p></div>
             <div class="pledges">{{ event.active_pledges|length }}/{{ event.max_people }}</div>
             <ul class="pledgers">

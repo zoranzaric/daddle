@@ -50,7 +50,7 @@ http://daddle.zorzar.de/event/%d""" % (instance.mission.title,
 
     for user in User.objects.all():
         if user.email:
-            send_mail('New daddle event!',
+            send_mail('[daddle] New daddle event!',
                       body,
                       'zz@zoranzaric.de',
                       [user.email],
@@ -65,6 +65,29 @@ class Pledge(models.Model):
 
     def is_active(self):
         return self.cancel_timestamp == None
+
+@receiver(post_save, sender=Pledge)
+def pledge_post_save_handler(sender, instance, **kwargs):
+    body = """%s is helping you!
+
+%s - %s
+%s
+%s
+
+http://daddle.zorzar.de/event/%d""" % (instance.user,
+                                       instance.event.mission.title,
+                                       instance.event.title,
+                                       instance.event.start_date,
+                                       instance.event.description,
+                                       instance.event.id)
+
+    for pledge in instance.event.pledge_set.all():
+        if pledge.user != instance.user and pledge.user.email:
+            send_mail('[daddle] Somebody is helping you!',
+                      body,
+                      'zz@zoranzaric.de',
+                      [pledge.user.email],
+                      fail_silently=False)
 
 
 class Mission(models.Model):

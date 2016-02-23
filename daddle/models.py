@@ -1,3 +1,6 @@
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -30,6 +33,28 @@ class Event(models.Model):
             if pledge.user == user:
                 return True
         return False
+
+@receiver(post_save, sender=Event)
+def event_post_save_handler(sender, instance, **kwargs):
+    body = """There\'s a new daddle event!
+
+%s - %s
+%s
+%s
+
+http://daddle.zorzar.de/event/%d""" % (instance.mission.title,
+                                       instance.title,
+                                       instance.start_date,
+                                       instance.description,
+                                       instance.id)
+
+    for user in User.objects.all():
+        if user.email:
+            send_mail('New daddle event!',
+                      body,
+                      'zz@zoranzaric.de',
+                      [user.email],
+                      fail_silently=False)
 
 
 class Pledge(models.Model):
